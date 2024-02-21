@@ -1,17 +1,10 @@
 import express, { Request, Response } from 'express';
-import OpenAI from 'openai';
-import * as dotenv from 'dotenv';
+import BRDGenerator from './brd-generator/brd-generator';
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const port = 3000;
-dotenv.config();
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  baseURL: process.env.OPENAI_BASE_URL,
-});
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
@@ -20,7 +13,9 @@ app.get('/', (req: Request, res: Response) => {
 app.post('/brd', async (req: Request, res: Response) => {
   const prompt = req.body.prompt;
   console.log(prompt);
-  res.json({ message: prompt });
+
+  const brd = await BRDGenerator.generate(prompt);
+  res.json({ message: brd });
 });
 
 app.listen(port, () => {
