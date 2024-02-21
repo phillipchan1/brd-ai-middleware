@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: dist # Assuming your build output is in a 'dist' folder
+          path: dist/ # Assuming your build output is in a 'dist' folder
 
   deploy:
     runs-on: ubuntu-latest
@@ -50,4 +50,4 @@ jobs:
           app-name: "brd-ai-middleware"
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AF7ABAF447CC4236A754018FAEF02F13 }}
-          package: dist # Only deploy the 'dist' folder
+          package: dist/ # Only deploy the 'dist' folder
