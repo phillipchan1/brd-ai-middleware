@@ -1,6 +1,15 @@
 import express, { Request, Response } from "express"
+import OpenAI from "openai"
+import * as dotenv from "dotenv"
+
 const app = express()
 const port = 3000
+dotenv.config()
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+  baseURL: process.env.OPENAI_BASE_URL,
+})
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!")
