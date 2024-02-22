@@ -9,4 +9,11 @@ const client = new OpenAI({
   defaultHeaders: { 'api-key': process.env.OPENAI_API_KEY },
 });
 
-export default client;
+function generateMessage(prompt: String): any {
+  return {
+    role: 'user',
+    content: prompt,
+  };
+}
+
+export { client, generateMessage };

@@ -11,10 +11,10 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.post('/brd', async (req: Request, res: Response) => {
-  const prompt = req.body.prompt;
-  console.log(prompt);
+  const projectBrief = req.body.projectBrief;
 
-  const brd = await BRDGenerator.generate(prompt);
+  const brd = await BRDGenerator.generate(projectBrief);
+  console.log('This is BRD:', brd);
   res.json({ message: brd });
 });
 
