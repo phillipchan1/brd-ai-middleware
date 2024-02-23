@@ -13,9 +13,20 @@ app.get('/', (req: Request, res: Response) => {
 app.post('/brd', async (req: Request, res: Response) => {
   const projectBrief = req.body.projectBrief;
 
-  const brd = await BRDGenerator.generate(projectBrief);
-  console.log('This is BRD:', brd);
-  res.json({ message: brd });
+  try {
+    const brd = await BRDGenerator.generate(JSON.stringify(projectBrief));
+    console.log('This is BRD:', brd);
+
+    // Set headers for file download
+    res.setHeader('Content-Disposition', 'attachment; filename=brd.md');
+    res.setHeader('Content-Type', 'text/markdown');
+
+    // Send the Markdown content as the response
+    res.send(brd);
+  } catch (error) {
+    console.error('Error generating BRD:', error);
+    res.status(500).send('Error generating BRD');
+  }
 });
 
 app.listen(port, () => {

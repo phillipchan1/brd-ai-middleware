@@ -2,10 +2,15 @@ import fs from 'fs';
 import path from 'path';
 import { client, generateMessage } from '../../openai/openai';
 
-async function generateTitlePage(projectBrief: string): Promise<string> {
+async function generateDocumentInformation(projectBrief: string): Promise<string> {
   const projectRoot = process.cwd();
-  const fileName = 'brd-title-page.prompt.txt';
-  const filePath = path.join(projectRoot, '/src/brd-generator', 'brd-title-page', fileName);
+  const fileName = 'brd-document-information.prompt.txt';
+  const filePath = path.join(
+    projectRoot,
+    '/src/brd-generator',
+    'brd-document-information',
+    fileName
+  );
 
   try {
     const fileData = await fs.promises.readFile(filePath, 'utf-8');
@@ -22,9 +27,9 @@ async function generateTitlePage(projectBrief: string): Promise<string> {
     const messageContent = chatCompletion.choices[0].message.content;
     return messageContent !== null ? messageContent : '';
   } catch (err) {
-    console.error('Error generating title page:', err);
+    console.error('Error generating document information page:', err);
     throw err; // Allow the error to propagate upwards
   }
 }
 
-export { generateTitlePage };
+export { generateDocumentInformation };

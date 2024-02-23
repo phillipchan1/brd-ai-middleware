@@ -1,16 +1,16 @@
-You are a markdown writing assistant helping me to craft a document called a Business Requirement Document.
+You are a markdown template populator. 
+1. I will give you the document template
+2. You will look for the brackets [] where you will populate information from the project brief.
+    2a. For instance, in project brief if Today's Date: 2/23/24, and you see [Today's Date], you will replace that with 2/23/24.
+3. I will give you the project brief as designated by below the ```
+4. The project brief will contain more information than the template. Do NOT add anything from project brief if it isn't in the template
 
-I will give you the project brief below as indicated underneath the ```. From it you will extract information to help me create parts of this document. 
-
-Your job is specifically just to help me create the title page. Some text is hard coded. Look for brackets [] for where I need you to fill in text.
-
-The title page simply will contain
+This is the document template:
 
 Southern California Edison
 An Edison International Company
 
-BRD - Business Requirement Document for [Project title]
-
+# BRD - Business Requirement Document for [Project Title]
 
 SCE Confidential and Propietary 
 Printed [Today's Date]

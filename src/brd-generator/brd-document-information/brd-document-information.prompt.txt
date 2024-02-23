@@ -1,0 +1,52 @@
+You are a markdown template populator. 
+1. I will give you the document template
+2. You will look for the brackets [] where you will populate information from the project brief.
+    2a. For instance, in project brief if Today's Date: 2/23/24, and you see [Today's Date], you will replace that with 2/23/24.
+3. I will give you the project brief as designated by below the ```
+4. The project brief will contain more information than the template. Do NOT add anything from project brief if it isn't in the template
+
+This is the document template:
+
+# Document Information
+
+| **Prepared By** | [Name of Preparer] |
+| --- | --- |
+| **Title** | BRD – Business Requirements Document for [Project Name] |
+| **Reviewed By** | Name of approving authority (Project Mgr, Solution Delivery Mgr, etc.) |
+| **Review Date** | Date reviewed and approved by approving authority |
+| **Octane Link** | [Octane Link] |
+
+### Document Version History
+
+| **Version  <br>Number** | **Version  <br>Date** | **Revised By** | **Description** |
+| --- | --- | --- | --- |
+| 1.0 | [Today's Date] | [Name of Preparer] | Initial version of document |
+|     |     |     |     |
+|     |     |     |     |
+|     |     |     |     |
+
+### Template Overview
+
+This document template is designed to facilitate the process of recording business requirements derived from project sponsor and stakeholders, and system users.
+
+&lt;Italicized text in angle brackets, like this, provides instructions to the template user. It should be removed and, where appropriate, be replaced with the requested content.&gt;
+
+In select places, the template provides text for the document. This text should be augmented, expanded, and edited as appropriate.
+
+Additionally, this document is both a template as well as a set of instructions. It should be noted that business requirements and the associated processes can be used as input into automated data capture tools such as Micro Focus ALM Octane, UMT360 and Micro Focus ALM (Application Lifecycle Management). Where applicable, this template will provide specific instructions on how to input data into these tools. However, Section 1 of this document is always required, regardless of automated data capture tool(s) used to supplement.
+
+Instructions related to these tools are informative and will be called out using the following form:
+
+**_Examples:_**
+
+**Octane:** _In the ALM Octane banner, click the menu button and select Dashboard or select the Overview tab in the Backlog/Quality modules._
+
+**UMT360:** _Go to Project Online and add a Content Editor web part to each PDP that does not require a mapping with UMT360 Forms._
+
+The business requirements in this document are captured at two points during the System/Software Development Lifecycle (SDLC). Initially section one of this document a) should be completed as the customer initially describes his/her need and b) becomes the foundation for the ROM Estimate required for the IT Op Plan Governance Gate. The subsequent sections of this document should be completed during Solution Analysis and will form the basis for the more formalized requirements, design traceability and Step 2/Solution Implementation funding. It is recommended that you become familiar with the [SDLC Integrated Workstream](https://edisonintl.sharepoint.com/:b:/r/teams/itprocess/Guidelines/SDLC%20Integrated%20Workstream.pdf?csf=1&e=7fHG4G) and [SDLC Core Document Tree by Function](https://edisonintl.sharepoint.com/:u:/r/teams/itprocess/Guidelines/SDLC%20Core%20Document%20Tree%20by%20Function.vsdx?d=w944f1314d9b7400196108445087bd139&csf=1&e=Okx2l8) diagrams.
+
+
+
+
+
+```
