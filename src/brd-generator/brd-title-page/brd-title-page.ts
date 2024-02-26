@@ -8,9 +8,8 @@ async function generateTitlePage(projectBrief: string): Promise<string> {
   const filePath = path.join(projectRoot, '/src/brd-generator', 'brd-title-page', fileName);
 
   try {
-    const fileData = await fs.promises.readFile(filePath, 'utf-8');
+    const unpopulatedPrompt = await fs.promises.readFile(filePath, 'utf-8');
 
-    const unpopulatedPrompt = fileData;
     const populatedPrompt = unpopulatedPrompt.concat(projectBrief);
     const prompt = generateMessage(populatedPrompt);
 
@@ -23,7 +22,7 @@ async function generateTitlePage(projectBrief: string): Promise<string> {
     return messageContent !== null ? messageContent : '';
   } catch (err) {
     console.error('Error generating title page:', err);
-    throw err; // Allow the error to propagate upwards
+    throw err;
   }
 }
 
