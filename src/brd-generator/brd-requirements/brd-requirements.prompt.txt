@@ -5,8 +5,8 @@ There is a template for a document that needs to be populated with requirements 
 Here are the instructions
 1. I will give you the document template
 2. You will look for at the tables for where the function, performance, user acceptance requirements are
-3. Based on the project brief, you will populate the tables with the requirements
-3. I will give you the project brief as designated by below the ```
+3. Based on the project brief, you will populate the tables with the 3-5 requirements. Add rows if you need.
+5. I will give you the project brief as designated by below the ```
 4. The project brief will contain more information than the template. Do NOT add anything from project brief if it isn't in the template
 
 This is the document template:
@@ -31,9 +31,9 @@ This is the document template:
 
 | **BR ID** | **Description** | **Level of Need <br>**(Low/Med/High) |
 | --------- | --------------- | ------------------------------------ |
-| BR-xxx    |                 |                                      |
-| BR-xxx    |                 |                                      |
-| BR-xxx    |                 |                                      |
+| BR-001    |                 |                                      |
+| BR-002    |                 |                                      |
+| BR-003    |                 |                                      |
 
 ## User Acceptance Expectations
 
