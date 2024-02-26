@@ -1,18 +1,25 @@
 import { addPageBreaktoMarkdown } from '../doc-utils/doc-utils';
 import { generateDocumentInformation } from './brd-document-information/brd-document-information';
+import { generateRequirementsPage } from './brd-requirements/brd-requirements';
 import { generateTitlePage } from './brd-title-page/brd-title-page';
 
 class BRDGenerator {
   static async generate(projectBrief: any) {
-    console.log(projectBrief);
-    const titlePage = await generateTitlePage(projectBrief);
-    console.log('title page done', titlePage);
+    // title page
+    // var titlePage = await generateTitlePage(projectBrief);
+    // titlePage = addPageBreaktoMarkdown(titlePage);
+    // console.log('title page done', titlePage);
 
-    const documentInformation = await generateDocumentInformation(projectBrief);
-    console.log('document information done', documentInformation);
+    // document information page
+    // var documentInformation = await generateDocumentInformation(projectBrief);
+    // documentInformation = addPageBreaktoMarkdown(documentInformation);
+    // console.log('document information done', documentInformation);
 
-    var finalDocument = addPageBreaktoMarkdown(titlePage);
-    finalDocument = finalDocument.concat(documentInformation);
+    var requirements = await generateRequirementsPage(projectBrief);
+    requirements = addPageBreaktoMarkdown(requirements);
+    console.log('requirements done', requirements);
+
+    var finalDocument = requirements;
 
     console.log(finalDocument);
 
