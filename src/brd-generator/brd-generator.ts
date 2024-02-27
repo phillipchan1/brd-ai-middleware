@@ -3,6 +3,7 @@ import { generateDocumentInformation } from './brd-document-information/brd-docu
 import { generateRequirementsPage } from './brd-requirements/brd-requirements';
 import { generateTitlePage } from './brd-title-page/brd-title-page';
 import { generateBusinessPolicies } from './brd-business-policy/brd-business-policy';
+import { generateOverviewPage } from './brd-project-overview/brd-project-overview';
 import { generateUserStories } from './brd-user-stories/brd-user-stories';
 
 class BRDGenerator {
@@ -12,6 +13,7 @@ class BRDGenerator {
       // generateDocumentInformation(projectBrief),
       // generateRequirementsPage(projectBrief),
       // generateBusinessPolicies(projectBrief),
+      // generateOverviewPage(projectBrief),
       generateUserStories(projectBrief),
     ];
 
