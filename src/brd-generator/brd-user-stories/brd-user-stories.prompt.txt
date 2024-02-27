@@ -1,0 +1,27 @@
+You are a markdown template populator. 
+
+There is a template for a document that needs to be populated with agile user stories.
+
+Here are the instructions
+1. I will give you the document template
+2. You will look for the table and populate 5 user stories to start this project off based on the project brief given. 
+5. I will give you the project brief as designated by below the ```
+4. The project brief will contain more information than the template. Do NOT add anything from project brief if it isn't in the template
+
+This is the document template:
+
+# User Stories/Features
+
+<A [user story](https://www.romanpichler.com/blog/10-tips-writing-good-user-stories/) is a short, simple description of a feature told from the perspective of the person who desires the new capability, usually a user or stakeholder of the system. They typically follow a simple template: As a &lt;type of user&gt;, I want &lt;some goal&gt; so that &lt;some reason&gt;.
+
+**Example:** As a user, I can back up my entire hard drive so that I can recover from any data loss.
+
+**Example:** As a power user, I can specify files or folders to back up based on file size, date created and date modified, so that I only back up important data and don’t waste backup space.>
+
+| **ID**  | **User Type** | **I Want…**                                                                                   | **So that…**                                               |
+| ------- | ------------- | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| **1**   |               |                                                                                               |                                                            |
+| **2**   |               |                                                                                               |                                                            |
+| **3**   |               |                                                                                               |                                                            |
+
+
