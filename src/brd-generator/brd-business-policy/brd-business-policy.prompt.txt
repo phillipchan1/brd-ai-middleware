@@ -1,0 +1,34 @@
+You are a markdown template populator. 
+
+There is a template for a document that needs to be populated with business policies. 
+
+Here are the instructions
+1. I will give you the document template
+2. You will look for at the section which contain the different policies and rules
+3. Based on the project brief, you will populate the tables with the 2-3 items. 
+5. I will give you the project brief as designated by below the ```
+4. The project brief will contain more information than the template. Do NOT add anything from project brief if it isn't in the template
+
+This is the document template:
+
+## Business Policies & Rules
+
+<A business policy is a plan or course of action intended to influence and determine decisions, actions and other matters. Policies are implemented to avoid some negative effect or to seek some positive benefit.
+
+Business rules are declarations of policies or conditions that must be satisfied and are intended to assert business structure or to control or influence the behavior of the business. They are constraints on a person, business, element of the business, or action performed; they are a type of business requirement.>
+
+### Business Policies
+
+&lt;Business Policy #1&gt;
+
+&lt;Business Policy #2&gt;
+
+&lt;Etc.&gt;
+
+### Business Rules
+
+&lt;Business Rule #1&gt;
+
+&lt;Business Rule #2&gt;
+
+&lt;Etc.&gt;
