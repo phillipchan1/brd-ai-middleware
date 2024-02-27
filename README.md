@@ -18,7 +18,7 @@ A tool for automatically generating Business Requirements Documents (BRDs) using
    git clone [https://github.com/phillipchan1/brd-ai-middleware](https://github.com/phillipchan1/brd-ai-middleware)
    ```
 
-2. \*Install dependencies\*\*
+2. **Install dependencies**
 
    ```bash
    cd brd-ai
