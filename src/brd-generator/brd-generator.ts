@@ -6,38 +6,21 @@ import { generateBusinessPolicies } from './brd-business-policy/brd-business-pol
 
 class BRDGenerator {
   static async generate(projectBrief: any) {
-    // Create an array of promises representing each task
-    const promises = [
+    const contentGenerationPromises = [
       generateTitlePage(projectBrief),
       generateDocumentInformation(projectBrief),
       generateRequirementsPage(projectBrief),
       generateBusinessPolicies(projectBrief),
     ];
 
-    // Wait for all promises to resolve concurrently
-    const [titlePage, documentInformation, requirements, businessPolicies] = await Promise.all(
-      promises
+    const formattedContent = await Promise.all(
+      contentGenerationPromises.map(async (promise) => {
+        const content = await promise;
+        return addPageBreaktoMarkdown(content);
+      })
     );
 
-    // Apply formatting and construct final document
-    const formattedTitlePage = addPageBreaktoMarkdown(titlePage);
-    console.log('title page done', formattedTitlePage);
-
-    const formattedDocumentInformation = addPageBreaktoMarkdown(documentInformation);
-    console.log('document information done', formattedDocumentInformation);
-
-    const formattedRequirements = addPageBreaktoMarkdown(requirements);
-    console.log('requirements done', formattedRequirements); // Assume you want a log here
-
-    const formattedBusinessPolicies = addPageBreaktoMarkdown(businessPolicies);
-    console.log('business policies done', formattedBusinessPolicies);
-
-    const finalDocument = [
-      formattedTitlePage,
-      formattedDocumentInformation,
-      formattedRequirements,
-      formattedBusinessPolicies,
-    ].join(''); // Assemble the final document
+    const finalDocument = formattedContent.join('');
 
     console.log(finalDocument);
     return finalDocument;
