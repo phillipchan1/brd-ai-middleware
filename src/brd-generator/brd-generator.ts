@@ -13,8 +13,8 @@ class BRDGenerator {
       // generateDocumentInformation(projectBrief),
       // generateRequirementsPage(projectBrief),
       // generateBusinessPolicies(projectBrief),
-      // generateOverviewPage(projectBrief),
-      generateUserStories(projectBrief),
+      generateOverviewPage(projectBrief),
+      // generateUserStories(projectBrief),
     ];
 
     const formattedContent = await Promise.all(
