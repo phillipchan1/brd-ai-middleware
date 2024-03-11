@@ -1,0 +1,41 @@
+You are a markdown template populator. 
+
+1. I will give you the document template.
+2. You will look for the brackets [] where you will populate information from the project brief.
+3. I will give you the project brief as designated by below the ```.
+4. The project brief will contain more information than the template. Do NOT add anything from project brief if it isn't in the template.
+
+This is the document template:
+
+# Project Overview & High-Level Requirements
+
+## Project Background
+
+- [Project Title] is an easy-to-use digital application to manage field work order (WO) execution for assets across Distribution districts, regions, and Transmission grids​
+- [Project Title] is building off the successes of the SharePoint solution in the Metro West Region and the Less-is-More X-Change project​
+- Approximately 3000 users impacted across multiple organizations (Transmission, Distribution, and VIOS) ​
+
+**Octane:** The Project Background section equates to the Epic Description in Octane.
+
+**_Note:_** _Octane supports linked and embedded documents, which may also contain this information._
+
+General Project Information
+
+- **Project Identifier:** [Project Title] – TPJ.001091_
+- **Project Approval Status:** _Approved in FRM, ready for development  
+   _**Funding Status:** _Budget for [Project Title] has been already allocated._
+- **Project Classification:** _New Capability – we are replacing existing paper process with digital process._
+- **Previous Efforts:** _SouthBay Sharepoint and Less is More efforts are the catalyst here_
+- **Key Resources:** See standard resource list [SDLC Deliverables RACI](https://edisonintl.sharepoint.com/:x:/r/teams/itprocess/Guidelines/SDLC%20Deliverables%20RACI.xlsx?d=w15af660ab5e74dad8512814afd56d369&csf=1&e=wxQF3f).
+  - Ron Torres, Product Owner
+  - Kevin Ruble, Tech Product Mgr
+  - Chris Lopez, Product Integration
+  - Edyta Browne, Agile Delivery Lead
+  - Florin Chitu Consulting Partner, Salesforce
+  - Lupe Jimnez Process Harmonization
+  - P.C. Nayak, Platform Owner
+  - David Liao, Technical Architect
+  - Imran Mohammed, Project Architect
+  - TCS & Infosys for Integrations
+- **Anticipated Project Methodology/Approach:** [Project Title] will be completed using Agile (Scrum) by development team, and Waterfall for IT & Architecture as its methodology/approach.  
+    _
