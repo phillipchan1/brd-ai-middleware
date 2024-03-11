@@ -50,4 +50,4 @@ jobs:
           app-name: 'brd-ai-middleware'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AF7ABAF447CC4236A754018FAEF02F13 }}
-          package: /dist # Deploy the entire 'dist' directory
+          package: /dist/index.js # Deploy the entire 'dist' directory
