@@ -2,7 +2,8 @@
 import express, { Request, Response } from 'express';
 import fileUpload, { UploadedFile } from 'express-fileupload'; // Import UploadedFile type
 import BRDGenerator from './brd-generator/brd-generator';
-import { sendToChatGPT } from './generate-requirements/generate-requirements';
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const app = express();
 app.use(fileUpload());
@@ -17,42 +18,18 @@ app.get('/', (req: Request, res: Response) => {
 // Input(s): Plain Text Body
 // Output: Project Brief (JSON Format)
 app.post('/brd', async (req: Request, res: Response) => {
-  try {
-    // Check if textFile exists in the request body
-    const textFile = req.files?.textFile as UploadedFile;
-
-    if (!textFile) {
-      res.status(400).send('No text file uploaded');
-      return;
-    }
-
-    // Assuming textFile is a text file
-    const plainTextBody = textFile.data.toString('utf-8');
-
-    // 2. Write the ChatGPT Prompt, will need to test on GPT myself first.
-    const chatGptPrompt = `Your ChatGPT prompt here. ${plainTextBody}`;
-
-    // 3. Send the prompt along with the text file.
-    const chatGptResponse = await sendToChatGPT(chatGptPrompt);
-
-    // 4. Handle the response from ChatGPT.
-    // 4a. Validate that it is in JSON.
-    let projectBrief;
-    try {
-      projectBrief = JSON.parse(chatGptResponse);
-    } catch (jsonError) {
-      console.error('Error parsing ChatGPT response:', jsonError);
-      res.status(500).send('Error parsing ChatGPT response');
-      return;
-    }
-
-    // 5. Return the JSON to the client.
-    res.json(projectBrief);
-  } catch (error) {
-    console.error('Error processing BRD request:', error);
-    res.status(500).send('Error processing BRD request');
-  }
-});
+  /*
+  
+  1. Extract the text file from the body, and save it into a variable. May need to save it to a string.
+    1a. If not a text file, return an error.
+  2. Write the ChatGPT Prompt, will need to test on GPT myself first.
+  3. Send the prompt along with the text file.
+  4. Handle the response from ChatGPT.
+    4a. Validate that it is in JSON.
+  5. Return the JSON to the client.
+ 
+  */
+})
 
 // Handle file download
 app.post('/brd/download', async (req: Request, res: Response) => {
