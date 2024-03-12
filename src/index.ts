@@ -1,10 +1,11 @@
 // index.ts
 import express, { Request, Response } from 'express';
+import fileUpload, { UploadedFile } from 'express-fileupload'; // Import UploadedFile type
 import BRDGenerator from './brd-generator/brd-generator';
-import fileUpload from 'express-fileupload';
 import { sendToChatGPT } from './generate-requirements/generate-requirements';
 
 const app = express();
+app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const port = process.env.PORT || 3000;
@@ -18,13 +19,15 @@ app.get('/', (req: Request, res: Response) => {
 app.post('/brd', async (req: Request, res: Response) => {
   try {
     // Check if textFile exists in the request body
-    if (!req.files || !req.files.textFile) {
+    const textFile = req.files?.textFile as UploadedFile;
+
+    if (!textFile) {
       res.status(400).send('No text file uploaded');
       return;
     }
 
     // Assuming textFile is a text file
-    const plainTextBody = req.files.textFile.data.toString('utf-8');
+    const plainTextBody = textFile.data.toString('utf-8');
 
     // 2. Write the ChatGPT Prompt, will need to test on GPT myself first.
     const chatGptPrompt = `Your ChatGPT prompt here. ${plainTextBody}`;
