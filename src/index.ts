@@ -1,38 +1,46 @@
-// index.ts
 import express, { Request, Response } from 'express';
-import fileUpload, { UploadedFile } from 'express-fileupload'; // Import UploadedFile type
+import multer from 'multer';
 import BRDGenerator from './brd-generator/brd-generator';
-
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+import { generateContentFromPromptFile } from './brd-generator/brd-utils/brd-utils';
 
 const app = express();
-app.use(fileUpload());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 const port = process.env.PORT || 3000;
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.post('/generate-requirements', upload.single('textFile'), async (req: Request, res: Response) => {
+  try {
+    // Check if req.file is defined
+    if (!req.file) {
+      return res.status(400).send('No file uploaded.');
+    }
+
+    // Extract the text file from the request.
+    const fileContent: Buffer = req.file.buffer;
+
+    // Log the received text file.
+    console.log('Received text file:', fileContent.toString());
+
+    // Write the ChatGPT Prompt.
+    // const chatGptPrompt = `Your ChatGPT prompt here ${fileContent.toString()}`;
+
+    // Send the prompt along with the text file.
+    // const generatedContent = await generateContentFromPromptFile(chatGptPrompt, 'directory', 'prompt-file.txt');
+
+    // Return the JSON to the client.
+    // res.status(200).json({ projectBrief: generatedContent });
+  } catch (error) {
+    // console.error('Error generating project brief:', error);
+    // res.status(500).send('Error generating project brief');
+  }
 });
 
-// Input(s): Plain Text Body
-// Output: Project Brief (JSON Format)
-app.post('/brd', async (req: Request, res: Response) => {
-  /*
-  
-  1. Extract the text file from the body, and save it into a variable. May need to save it to a string.
-    1a. If not a text file, return an error.
-  2. Write the ChatGPT Prompt, will need to test on GPT myself first.
-  3. Send the prompt along with the text file.
-  4. Handle the response from ChatGPT.
-    4a. Validate that it is in JSON.
-  5. Return the JSON to the client.
- 
-  */
-})
 
-// Handle file download
-app.post('/brd/download', async (req: Request, res: Response) => {
+app.post('/brd', async (req: Request, res: Response) => {
   const projectBrief = req.body.projectBrief;
 
   try {
