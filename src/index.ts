@@ -14,14 +14,14 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post('/generate-requirements', upload.single('textFile'), async (req: Request, res: Response) => {
   if (!req.file) {
-    return res.status(400).send('No file uploaded.');
+    return res.status(400).send('There was no file uploaded.');
   }
 
   const fileContent: Buffer = req.file.buffer;
 
-  console.log('You\'ve received the text file:', fileContent.toString());
+  console.log('\nYou\'ve received the text file:\n\n', fileContent.toString());
 
-  res.status(200).send('File uploaded successfully.');
+  res.status(200).send('You\'ve uploaded the file successfully.');
 });
 
 
