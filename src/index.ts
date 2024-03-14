@@ -13,30 +13,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.post('/generate-requirements', upload.single('textFile'), async (req: Request, res: Response) => {
-  try {
-    // Check if req.file is defined
-    if (!req.file) {
-      return res.status(400).send('No file uploaded.');
-    }
-
-    // Extract the text file from the request.
-    const fileContent: Buffer = req.file.buffer;
-
-    // Log the received text file.
-    console.log('Received text file:', fileContent.toString());
-
-    // Write the ChatGPT Prompt.
-    // const chatGptPrompt = `Your ChatGPT prompt here ${fileContent.toString()}`;
-
-    // Send the prompt along with the text file.
-    // const generatedContent = await generateContentFromPromptFile(chatGptPrompt, 'directory', 'prompt-file.txt');
-
-    // Return the JSON to the client.
-    // res.status(200).json({ projectBrief: generatedContent });
-  } catch (error) {
-    // console.error('Error generating project brief:', error);
-    // res.status(500).send('Error generating project brief');
+  if (!req.file) {
+    return res.status(400).send('No file uploaded.');
   }
+
+  const fileContent: Buffer = req.file.buffer;
+
+  console.log('You\'ve received the text file:', fileContent.toString());
+
+  res.status(200).send('File uploaded successfully.');
 });
 
 
