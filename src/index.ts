@@ -2,6 +2,11 @@ import express, { Request, Response } from 'express';
 import multer from 'multer';
 import BRDGenerator from './brd-generator/brd-generator';
 import { generateContentFromPromptFile } from './brd-generator/brd-utils/brd-utils';
+import path = require('path');
+import fs from 'fs';
+import { client, generateMessage } from './openai/openai';
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,10 +23,36 @@ app.post('/generate-requirements', upload.single('textFile'), async (req: Reques
   }
 
   const fileContent: Buffer = req.file.buffer;
+  const projectBrief: string = fileContent.toString();
 
-  console.log('\nYou\'ve received the text file:\n\n', fileContent.toString());
+  try {
+    const filePath = path.join(process.cwd(), '/src/brd-generator/generate-requirements', 'generate-requirements.prompt.txt');
 
-  res.status(200).send('You\'ve uploaded the file successfully.');
+    const fileData = await fs.promises.readFile(filePath, 'utf-8');
+    const unpopulatedPrompt = fileData;
+    const populatedPrompt = unpopulatedPrompt.concat(projectBrief);
+    const prompt = generateMessage(populatedPrompt);
+
+    const chatCompletion = await client.chat.completions.create({
+      messages: [prompt],
+      model: 'gpt-4-32k',
+    });
+
+    const messageContent = chatCompletion.choices[0].message.content;
+
+    // Handle Null/Empty messageContent
+    const projectBriefJSON = messageContent ? JSON.parse(messageContent) : {};
+
+    // Provide Default Value For 'Octane Link' If Null
+    if (!projectBriefJSON['Octane Link']) {
+      projectBriefJSON['Octane Link'] = '';
+    }
+
+    res.status(200).json({ projectBrief: projectBriefJSON });
+  } catch (error) {
+    console.error('There was an error generating the project brief:', error);
+    res.status(500).send('There was an error generating the project brief.');
+  }
 });
 
 
@@ -29,7 +60,7 @@ app.post('/brd', async (req: Request, res: Response) => {
   const projectBrief = req.body.projectBrief;
 
   try {
-    const brd = await BRDGenerator.generate(JSON.stringify(projectBrief));
+    const brd = await BRDGenerator.generate(projectBrief);
     console.log('This is BRD:', brd);
 
     // Set headers for file download
