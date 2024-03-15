@@ -4,6 +4,15 @@
     "Background": "WorkIt is an easy-to-use digital application to manage field work order (WO) execution for assets\u202facross Distribution districts, regions, and Transmission grids",
     "Name of Preparer": "Edyta Brown",
     "Today's Date": "2/23/2024",
+    "Previous Work Project Built Upon": "",
+    "User Impact": "",
+    "Unique Project Identifier": "",
+    "Project Approval Status": "",
+    "Project Capability": "",
+    "Budget Approval": "",
+    "Previous Efforts": "",
+    "Project Methodology": "",
+    "Potential Key Role": "",
     "Intent of Project": "The intent of the WorkIt project is to provide a digital application to manage field work order (WO) execution for assets\u202facross Distribution districts, regions, and Transmission grids. The application will provide a user-friendly interface to create, assign, and track WOs, and will integrate with other SCE systems to provide real-time status updates and asset information.",
     "Octane Link": "https://octane.devops.sce.com/ui/?p=2001/15001#/release-quality/hierarchy/epic"
   }
