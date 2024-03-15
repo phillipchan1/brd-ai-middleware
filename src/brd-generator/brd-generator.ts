@@ -7,28 +7,33 @@ import { generateOverviewPage } from './brd-project-overview/brd-project-overvie
 import { generateUserStories } from './brd-user-stories/brd-user-stories';
 
 class BRDGenerator {
-  static async generate(projectBrief: any) {
-    const contentGenerationPromises = [
-      generateTitlePage(projectBrief),
-      // generateDocumentInformation(projectBrief),
-      // generateRequirementsPage(projectBrief),
-      // generateBusinessPolicies(projectBrief),
-      // // generateOverviewPage(projectBrief),
-      // generateUserStories(projectBrief),
+  static async generate(projectBrief: any, updateStatus: (status: string) => void) {
+    const contentGenerationTasks = [
+      generateTitlePage,
+      generateDocumentInformation,
+      generateRequirementsPage,
+      generateBusinessPolicies,
+      // generateOverviewPage,
+      generateUserStories,
     ];
 
+    const totalTasks = contentGenerationTasks.length;
+    let completedTasks = 0;
+
     const formattedContent = await Promise.all(
-      contentGenerationPromises.map(async (promise) => {
-        const content = await promise;
+      contentGenerationTasks.map(async (task) => {
+        const content = await task(projectBrief);
+        completedTasks++;
+        // Calculate completion percentage and send status update
+        const percentComplete = Math.round((completedTasks / totalTasks) * 100);
+        updateStatus(`Processing... ${percentComplete}% complete`);
         return addPageBreaktoMarkdown(content);
       })
     );
 
     const finalDocument = formattedContent.join('');
-
     console.log(finalDocument);
     return finalDocument;
   }
 }
-
 export default BRDGenerator;
