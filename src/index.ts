@@ -17,7 +17,7 @@ const upload = multer({ storage: storage });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-\\ const port = process.env.PORT || 8000;
+// const port = process.env.PORT || 8000;
 const httpServer = createServer(app);
 const io = new SocketIOServer(httpServer, {
   cors: {
