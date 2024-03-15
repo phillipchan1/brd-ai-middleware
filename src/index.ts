@@ -4,7 +4,7 @@ import BRDGenerator from './brd-generator/brd-generator';
 import path = require('path');
 import fs from 'fs';
 import { client, generateMessage } from './openai/openai';
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 import { Server as SocketIOServer } from 'socket.io';
 import { createServer } from 'http';
 
