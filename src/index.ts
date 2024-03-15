@@ -36,7 +36,7 @@ app.post('/generate-requirements', upload.single('textFile'), async (req: Reques
   const projectBrief: string = fileContent.toString();
 
   try {
-    const filePath = path.join(process.cwd(), '/src/generate-requirements', 'generate-requirements.prompt.txt');
+    const filePath = path.join(process.cwd(), '/src/generate-requirements', 'generate-project-overview-requirements.prompt.txt');
   
     const prompt = await fs.promises.readFile(filePath, 'utf-8');
   

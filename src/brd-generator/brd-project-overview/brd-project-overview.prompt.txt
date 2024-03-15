@@ -13,7 +13,7 @@ This is the document template:
 
 ## Project Background
 
-- [Project Overview]
+- [Background]
 - [Previous Work Project Built Upon]
 - [User Impact]
 
