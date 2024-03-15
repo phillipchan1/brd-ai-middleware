@@ -52,10 +52,6 @@ app.post('/generate-requirements', upload.single('textFile'), async (req: Reques
 
     const projectBriefJSON = messageContent ? JSON.parse(messageContent) : {};
 
-    if (!projectBriefJSON['Octane Link']) {
-      projectBriefJSON['Octane Link'] = '';
-    }
-
     res.status(200).json({ projectBrief: projectBriefJSON });
   } catch (error) {
     console.error('There was an error generating the project brief:', error);
