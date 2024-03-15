@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express';
 import multer from 'multer';
 import BRDGenerator from './brd-generator/brd-generator';
-import { generateContentFromPromptFile } from './brd-generator/brd-utils/brd-utils';
 import path = require('path');
 import fs from 'fs';
 import { client, generateMessage } from './openai/openai';
@@ -26,7 +25,7 @@ app.post('/generate-requirements', upload.single('textFile'), async (req: Reques
   const projectBrief: string = fileContent.toString();
 
   try {
-    const filePath = path.join(process.cwd(), '/src/brd-generator/generate-requirements', 'generate-requirements.prompt.txt');
+    const filePath = path.join(process.cwd(), '/src/generate-requirements', 'generate-requirements.prompt.txt');
 
     const fileData = await fs.promises.readFile(filePath, 'utf-8');
     const unpopulatedPrompt = fileData;
@@ -40,10 +39,8 @@ app.post('/generate-requirements', upload.single('textFile'), async (req: Reques
 
     const messageContent = chatCompletion.choices[0].message.content;
 
-    // Handle Null/Empty messageContent
     const projectBriefJSON = messageContent ? JSON.parse(messageContent) : {};
 
-    // Provide Default Value For 'Octane Link' If Null
     if (!projectBriefJSON['Octane Link']) {
       projectBriefJSON['Octane Link'] = '';
     }
