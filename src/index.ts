@@ -5,8 +5,6 @@ import path = require('path');
 import fs from 'fs';
 import { client, generateMessage } from './openai/openai';
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
 const app = express();
 const port = process.env.PORT || 3000;
 
