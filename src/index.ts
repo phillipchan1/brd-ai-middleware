@@ -23,7 +23,9 @@ app.post('/brd', async (req: Request, res: Response) => {
   const projectBrief = req.body.projectBrief;
 
   try {
-    const brd = await BRDGenerator.generate(JSON.stringify(projectBrief));
+    const brd = await BRDGenerator.generate(JSON.stringify(projectBrief), (status: string) => {
+      console.log(status);
+    });
     console.log('This is BRD:', brd);
 
     res.setHeader('Content-Disposition', 'attachment; filename=brd.md');
@@ -46,7 +48,9 @@ io.on(
     socket.on('generateBRD', async (projectBrief) => {
       try {
         console.log('starting BRD');
-        const brd = await BRDGenerator.generate(JSON.stringify(projectBrief));
+        const brd = await BRDGenerator.generate(JSON.stringify(projectBrief), (status: string) => {
+          socket.emit('statusUpdate', status);
+        });
         console.log('This is BRD:', brd);
         socket.emit('brdGenerated', brd);
       } catch (error) {
