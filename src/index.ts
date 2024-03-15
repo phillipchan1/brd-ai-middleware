@@ -4,7 +4,7 @@ import BRDGenerator from './brd-generator/brd-generator';
 import path = require('path');
 import fs from 'fs';
 import { client, generateMessage } from './openai/openai';
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { Server as SocketIOServer } from 'socket.io';
 import { createServer } from 'http';
 
@@ -37,26 +37,22 @@ app.post('/generate-requirements', upload.single('textFile'), async (req: Reques
 
   try {
     const filePath = path.join(process.cwd(), '/src/generate-requirements', 'generate-requirements.prompt.txt');
-
-    const fileData = await fs.promises.readFile(filePath, 'utf-8');
-    const unpopulatedPrompt = fileData;
-    const populatedPrompt = unpopulatedPrompt.concat(projectBrief);
-    const prompt = generateMessage(populatedPrompt);
-
+  
+    const prompt = await fs.promises.readFile(filePath, 'utf-8');
+  
+    const populatedPrompt = prompt.concat(projectBrief);
     const chatCompletion = await client.chat.completions.create({
-      messages: [prompt],
+      messages: [generateMessage(populatedPrompt)],
       model: 'gpt-4-32k',
     });
-
-    const messageContent = chatCompletion.choices[0].message.content;
-
-    const projectBriefJSON = messageContent ? JSON.parse(messageContent) : {};
-
+  
+    const projectBriefJSON = chatCompletion.choices[0].message.content ? JSON.parse(chatCompletion.choices[0].message.content) : {};
+  
     res.status(200).json({ projectBrief: projectBriefJSON });
   } catch (error) {
     console.error('There was an error generating the project brief:', error);
     res.status(500).send('There was an error generating the project brief.');
-  }
+  }  
 });
 
 
@@ -64,7 +60,9 @@ app.post('/brd', async (req: Request, res: Response) => {
   const projectBrief = req.body.projectBrief;
 
   try {
-    const brd = await BRDGenerator.generate(projectBrief);
+    const brd = await BRDGenerator.generate(JSON.stringify(projectBrief), (status: string) => {
+      console.log(status);
+    });
 
     console.log('This is BRD:', brd);
 
