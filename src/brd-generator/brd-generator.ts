@@ -9,12 +9,12 @@ import { generateUserStories } from './brd-user-stories/brd-user-stories';
 class BRDGenerator {
   static async generate(projectBrief: any) {
     const contentGenerationPromises = [
-      // generateTitlePage(projectBrief),
-      // generateDocumentInformation(projectBrief),
-      // generateRequirementsPage(projectBrief),
-      // generateBusinessPolicies(projectBrief),
-      generateOverviewPage(projectBrief),
-      // generateUserStories(projectBrief),
+      generateTitlePage(projectBrief),
+      generateDocumentInformation(projectBrief),
+      generateRequirementsPage(projectBrief),
+      generateBusinessPolicies(projectBrief),
+      // generateOverviewPage(projectBrief),
+      generateUserStories(projectBrief),
     ];
 
     const formattedContent = await Promise.all(
