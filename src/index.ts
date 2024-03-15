@@ -4,7 +4,7 @@ import BRDGenerator from './brd-generator/brd-generator';
 import path = require('path');
 import fs from 'fs';
 import { client, generateMessage } from './openai/openai';
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { Server as SocketIOServer } from 'socket.io';
 import { createServer } from 'http';
 
@@ -33,14 +33,15 @@ app.post('/generate-requirements', upload.single('textFile'), async (req: Reques
   }
 
   const fileContent: Buffer = req.file.buffer;
-  const projectBrief: string = fileContent.toString();
+  const meetingTranscription: string = fileContent.toString();
 
   try {
     const filePath = path.join(process.cwd(), '/src/generate-requirements', 'generate-project-overview-requirements.prompt.txt');
   
     const prompt = await fs.promises.readFile(filePath, 'utf-8');
   
-    const populatedPrompt = prompt.concat(projectBrief);
+    const populatedPrompt = prompt.concat(meetingTranscription);
+
     const chatCompletion = await client.chat.completions.create({
       messages: [generateMessage(populatedPrompt)],
       model: 'gpt-4-32k',
@@ -54,6 +55,7 @@ app.post('/generate-requirements', upload.single('textFile'), async (req: Reques
     res.status(500).send('There was an error generating the project brief.');
   }  
 });
+
 
 
 app.post('/brd', async (req: Request, res: Response) => {
