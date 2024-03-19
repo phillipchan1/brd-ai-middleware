@@ -13,7 +13,7 @@ class BRDGenerator {
       generateDocumentInformation,
       generateRequirementsPage,
       generateBusinessPolicies,
-      // generateOverviewPage,
+      generateOverviewPage,
       generateUserStories,
     ];
 
