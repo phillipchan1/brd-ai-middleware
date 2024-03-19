@@ -4,12 +4,13 @@ import BRDGenerator from './brd-generator/brd-generator';
 import path = require('path');
 import fs from 'fs';
 import { client, generateMessage } from './openai/openai';
+import cors from 'cors'; // Import cors
 
 import { Server as SocketIOServer } from 'socket.io';
 import { createServer } from 'http';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -26,36 +27,49 @@ const io = new SocketIOServer(httpServer, {
   },
 });
 
+app.use(
+  cors({
+    origin: 'http://localhost:3000', // Your client's URL
+  })
+);
 
-app.post('/generate-requirements', upload.single('textFile'), async (req: Request, res: Response) => {
-  if (!req.file) {
-    return res.status(400).send('There was no file uploaded.');
+app.post(
+  '/generate-requirements',
+  upload.single('textFile'),
+  async (req: Request, res: Response) => {
+    if (!req.file) {
+      return res.status(400).send('There was no file uploaded.');
+    }
+
+    const fileContent: Buffer = req.file.buffer;
+    const meetingTranscription: string = fileContent.toString();
+
+    try {
+      const filePath = path.join(
+        process.cwd(),
+        '/src/generate-requirements',
+        'generate-project-overview-requirements.prompt.txt'
+      );
+      const prompt = await fs.promises.readFile(filePath, 'utf-8');
+
+      const populatedPrompt = prompt.concat(meetingTranscription);
+
+      const chatCompletion = await client.chat.completions.create({
+        messages: [generateMessage(populatedPrompt)],
+        model: 'gpt-4-32k',
+      });
+
+      const projectBriefJSON = chatCompletion.choices[0].message.content
+        ? JSON.parse(chatCompletion.choices[0].message.content)
+        : {};
+
+      res.status(200).json({ projectBrief: projectBriefJSON });
+    } catch (error) {
+      console.error('There was an error generating the project brief:', error);
+      res.status(500).send('There was an error generating the project brief.');
+    }
   }
-
-  const fileContent: Buffer = req.file.buffer;
-  const meetingTranscription: string = fileContent.toString();
-
-  try {
-    const filePath = path.join(process.cwd(), '/src/generate-requirements', 'generate-project-overview-requirements.prompt.txt');
-    const prompt = await fs.promises.readFile(filePath, 'utf-8');
-  
-    const populatedPrompt = prompt.concat(meetingTranscription);
-
-    const chatCompletion = await client.chat.completions.create({
-      messages: [generateMessage(populatedPrompt)],
-      model: 'gpt-4-32k',
-    });
-  
-    const projectBriefJSON = chatCompletion.choices[0].message.content ? JSON.parse(chatCompletion.choices[0].message.content) : {};
-  
-    res.status(200).json({ projectBrief: projectBriefJSON });
-  } catch (error) {
-    console.error('There was an error generating the project brief:', error);
-    res.status(500).send('There was an error generating the project brief.');
-  }  
-});
-
-
+);
 
 app.post('/brd', async (req: Request, res: Response) => {
   const projectBrief = req.body.projectBrief;
