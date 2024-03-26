@@ -24,9 +24,8 @@ class BRDGenerator {
       contentGenerationTasks.map(async (task) => {
         const content = await task(projectBrief);
         completedTasks++;
-        // Calculate completion percentage and send status update
         const percentComplete = Math.round((completedTasks / totalTasks) * 100);
-        updateStatus(`Processing... ${percentComplete}% complete`);
+        updateStatus(percentComplete.toString());
         return addPageBreaktoMarkdown(content);
       })
     );
